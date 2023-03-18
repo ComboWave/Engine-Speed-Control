@@ -1,4 +1,5 @@
 # Engine speed control
+
 Functional definition – The device detects the difference between the given engine speed and the speed desired by the user.
 Capabilities:
 - Has the ability to receive data using switches and a speed sensor.
@@ -12,7 +13,7 @@ Specifications:
 - Output voltage according to the requirements of the circuit components (listed).
 - Form factor: 4*16.4*5.3*8 [cm] (matrices).
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122122-2368739d-70df-4e79-a174-07e431123a67.png)
 
 Subject matter – What am I about to solve:
 Assume we have a small engine with output voltage up to 5[V], and I would like to know what speed the Controller/Main computer will have to add/subtract from the engine speed in order to reach the speed requested by the end user.
@@ -43,40 +44,45 @@ The system is taking as input two speeds:
 2) Given engine current speed.
 The system will calculate the difference between those inputs, same difference will be displayed on the 7-Segment displays in addition to the end user’s desired speed.
 
+![image](https://user-images.githubusercontent.com/105777016/226122138-6bbc5424-5c0d-4eba-a676-c8d162dd132c.png)
 
-image.png
+
 
 System Parts:
 1) D/A Converter:
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122144-b2c29dc1-8b4e-4730-a854-a3891c134e38.png)
+
 
 The first part is responsible for receiving the desired voltage from the end user. I used the “Digital to Analog convertor” a.k.a D/A which I implemented myself.
 The resolution of my conveter is: Vref =5[V]/(2^4)=0.3125[V]
 The converter was built from regular switches so that the end user can use them to enter his desired speed. The voltage received at the D/A output will be an analog voltage that represents the digital bits received from the end user, this voltage will vary between 0[V]-5[V].
 Below you can see that truth-table according to which this part was designed:
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122149-87d215fc-d571-49b0-978b-80847ba17cff.png)
+
 
 Implementation:
 
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122160-46c03652-aaf6-4f49-bfc4-4ddba2a8d44a.png)
+
 
 2)  Difference Calculator
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122166-fdb1d0c0-da88-408f-953a-9fedc246fbf6.png)
+
 
 The second part is responsible for finding the difference between the speed desired by the end user and the existing engine speed.
 The structure of this part goes as following:
 a. I used inverting operational amplifier (inverter) in order to get the desired voltage as positive because the D/A converter output always receives a negative voltage.
 b. A differential operational amplifier into which the engine voltage enters the negative trigger and the positive trigger through the inverter whose purpose is to give us the difference.
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122175-17c6e3b7-e700-4da8-ab4b-f94340be75f6.png)
 
 3) "Selector and fixer”
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122182-4eeaabda-ec90-4122-8092-1043224e51d0.png)
 
 The third part is responsible for selecting the voltage obtained from part 2 (the differential voltage). The voltage obtained can be negative/positive/
 I’ll perform a number of manipulations which in the end will provide a proper input voltage to the A/D converter which represents the differential voltage.
@@ -86,22 +92,23 @@ The structure of this part is as follows:
 3) From there, depending on the chosen route, a reversal is performed by a inverter or a direct transition.
 4) After that, a correction is made by a voltage divider calculated in advance to a value of 0.3[V] which in it’s end the voltage enters the A/D converter.
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122186-e7730b0d-2954-40af-b8fd-4738afbd0c3f.png)
 
 This mechanism can be seen in the flowchart below:
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122192-a28545b8-3025-41a4-96f4-90825300eb5c.png)
 
 4)Analog to Digital Converter:
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122196-19b5cc49-973f-4682-b53e-e2063f456d4b.png)
 
 The fourth part is responsible for converting the analog voltage from the output of part 3 (“ Selector and fixer”) to it’s representation in digital voltage. Converter specifications:
 - Vref=5[V]
 - Clock frequency=1[kHz]
+
 5)Sub system-decoder
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122200-68c0b031-c855-4397-b3ee-f2114818fbcc.png)
 
 This part is responsible for transferring the digital voltage in an orderly manner according to the 7-Segment logic. This part exists twice :
 1) Subsystem 1 – Connected to our D/A and shows us the desired speed from the end user in [km/h].
@@ -110,17 +117,18 @@ When the sign bit is off – it means that the voltage must be added to the engi
 When the sign bit is on – it means that the voltage must be subtracted from the engine to reach the desired voltage.
 Subsystem 1:
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122215-1c638de7-72f1-45be-84a3-278356328e4b.png)
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122220-6ccef23c-cece-41fc-a5a0-812cc16b37bd.png)
 
 Subsystem 2:
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122223-9649be91-c480-46c5-bff9-e60971657458.png)
 
-image.png
+![image](https://user-images.githubusercontent.com/105777016/226122226-d42b5596-5d4e-4b65-b1bc-730eed1d4c22.png)
 
 According to the functions received, I implemented logic gates that faithfully represented them.
+
 Simulations & Errors fixing:
 
 During the simulation due to the assumption that all the components are ideal, I found out that the result of the voltage difference is slightly lower compared to what I expected to get in theory, which caused an error in the output result of the A/D converter.
