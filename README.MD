@@ -21,23 +21,26 @@ Since it is a small engine that produces low output voltages, the system will ha
 The solutions offered today are portable tachometers that measure rpm and speed using a sensor mounted on the wheel or using a laser meter that measures the engine RPM.
 Sine I do not have the possibility to this in my room and I do not have the option a control system, I’ll assume that the output voltage of the engine is a known variable.
 Note – The system will function as part of a complete engine speed control system. Therefore, I can have the assumption that the engine speed at any given moment is known.
+
 Planning considerations:
+
 The system will consist of a digital components without any traditional memory (RAM, ROM). Since I work in an office and I’m limited in terms of components, I’ll not be able to use a laser sensor or a sensor mounted on an experimental wheel, so I’ll assume that the output voltage of the motor is variable voltage.
-This voltage will enter the system to the second ASSEMBLY and will be converted to the speed in the ratio determined.
-The incoming voltage from the engine is an analog voltage. The voltage that the end user enter is a digital voltage that is converted to analog voltage in the first ASSEMBLY. The subtraction is being made between the two analog voltages.
-In the fifth ASSEMBLY, the result of the analog subtraction is being converted to a digital voltage using an A/D converter with a resolution that I determined according to the conversion ratio.
-The user will enter a voltage in the first ASSEMBLY and will be able to see the speed that voltage represents on the 7-Segment displays in the first ASSEMBLY.
-In the second ASSEMBLY, the engine voltage is being converted to speed and compared to the speed that the end user requested and entered in the first ASSEMBLY.
-The incoming voltages in the first and second ASSEMBLY will be at relatively low values (up to 15[V]), according to the supply voltages of the components being used and the data on the respective manufacturer’s pages.
-If the incoming voltage from the engine is different from the voltage requested by the end user, the system will show the user the difference between the voltages converted to the parameter in the fifth ASSEMBLY on the 7-Segment displays.
-By the difference that will be shown to the end user in the fifth ASSEMBLY, he will be able to know whether the engine is working properly or, (if it is a normal engine) whether he should increase of decrease the speed of the engine (meaning – increase or decrease the voltage level leaving the engine and entering the system) in order to reach the desired value.
+This voltage will enter the system to the second part and will be converted to the speed in the ratio determined.
+The incoming voltage from the engine is an analog voltage. The voltage that the end user enter is a digital voltage that is converted to analog voltage in the first part. The subtraction is being made between the two analog voltages.
+In the fifth part, the result of the analog subtraction is being converted to a digital voltage using an A/D converter with a resolution that I determined according to the conversion ratio.
+The user will enter a voltage in the first part and will be able to see the speed that voltage represents on the 7-Segment displays in the first part.
+In the second part, the engine voltage is being converted to speed and compared to the speed that the end user requested and entered in the first part.
+The incoming voltages in the first and second part will be at relatively low values (up to 15[V]), according to the supply voltages of the components being used and the data on the respective manufacturer’s pages.
+If the incoming voltage from the engine is different from the voltage requested by the end user, the system will show the user the difference between the voltages converted to the parameter in the fifth part on the 7-Segment displays.
+By the difference that will be shown to the end user in the fifth part, he will be able to know whether the engine is working properly or, (if it is a normal engine) whether he should increase of decrease the speed of the engine (meaning – increase or decrease the voltage level leaving the engine and entering the system) in order to reach the desired value.
 The system will display both negative values in which the engine reaches a speed higher than the speed the user wanted and positive values in which the engine reaches a speed lower than the speed the user wanted and the difference that will be shown to the end user will show the values of the speed that he must add (no sign or lower (a minus sign will be displayed).
-This examination of whether the difference is negative is carried out in the third ASSEMBLY – the voltage selection ASSEMBLY.
+This examination of whether the difference is negative is carried out in the third part – the voltage selection part.
 Some Justifications for thee way I chose to design this system functionality:
 I could have assume that the system measures the RPM of the engine, but I did not do so – because, if the system measured RPM I could not use it as a speed control system in addition and then the system would only be used as a speedometer, having a low to none benefit to the potential customer since those kind of products are already available.
 In addition, the values of the RPM required as significant resolution change in the system, which in terms of cost Vs. benefit was simply not feasible for me.
 If the system measured RPM only, I would have required more components and a change in the D/A converter resolutions. From a careful examination I carried I conducted the cost-benefit ratio would have decreased and it would not be worthwhile to use such a system.
 Moreover, I chose to build this system according to the engine voltage out of considerations of expediency and versatility. The device can be also used as a speedometer for normal tools and help the end user reach the desired speed, thus solving the mentioned problem.
+
 Flowchart:
 The system is taking as input two speeds:
 1) Engine speed desired by the end user.
