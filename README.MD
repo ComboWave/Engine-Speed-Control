@@ -1,6 +1,7 @@
 # Engine speed control
 
 Functional definition – The device detects the difference between the given engine speed and the speed desired by the user.
+
 Capabilities:
 - Has the ability to receive data using switches and a speed sensor.
 - Has the ability to display data to the end user using 4 seven segments modules and an additional seven segment module to display the amount of speed needed to be added/deducted.
